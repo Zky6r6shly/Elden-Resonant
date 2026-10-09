@@ -61,6 +61,10 @@ Build on Linux with `rustup target add x86_64-pc-windows-gnu`, `mingw-w64` and `
 
 The per-frame hook (sounds, traversal, free powers) uses addresses for Elden Ring 2.7.1.0 (JP 2.7.1.1). On other versions the class, items and text still change, but those features stay off and the log says so. The traversal numbers in `sheets/traversal.json` are starting values to tune in game.
 
+## License
+
+Elden Resonant's own code, sheets and text: all rights reserved. Remixing is not allowed. Bundled third-party software keeps its own licenses (see `licenses/` in the release).
+
 ## Credits
 
 - Elden Ring © FromSoftware / Bandai Namco. CONTROL Resonant © Remedy Entertainment. Both games' content is read from the player's own installs.
