@@ -13,6 +13,14 @@ character. You start with:
     running out: Force Push, Offensive Shield, Ignite, Inferno, Growth,
     Barrage, Remote Explosion
 
+Every character also gets CONTROL Resonant's traversal powers, all on the
+jump button: press jump in mid-air to Double Jump, keep holding it to
+Elevate (float and glide down; drains FP), and jump while sprinting to Rush
+(a long, fast leap). Off while riding Torrent.
+
+Free powers: press F8 in game, or set free_powers=true in
+elden-resonant.ini, and powers, skills and traversal cost no FP.
+
 While you play, the mod reads sounds from YOUR OWN CONTROL Resonant
 install (Steam or Epic) and plays them when you shift forms, land a
 finisher or use a power. No CONTROL Resonant files ship with this mod.

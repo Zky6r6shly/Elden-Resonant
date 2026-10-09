@@ -23,7 +23,17 @@ Seven **Resonance powers** sit on your item belt. They never run out and cost FP
 
 CONTROL Resonant sounds play when you enter the world, shift to an Aberrant form, land a finisher or use a power. The mod lists every `.wem` in your CONTROL Resonant archives, picks one per cue by keyword (see `sheets/cues.json`), decodes it with the bundled vgmstream and caches it in `%LOCALAPPDATA%\EldenResonant\cache`. The log next to the cache says which file each cue uses. You can pin your own choices in `elden-resonant.ini`.
 
-Left out of the first version: CONTROL Resonant's traversal powers (Elevate, Double Jump, Rush) and Shift, which rotates CONTROL Resonant's own levels.
+**Traversal powers**, always on for every character, all on the jump button:
+
+- **Double Jump:** press jump again in mid-air.
+- **Elevate:** keep holding jump in mid-air to float and glide slowly down. It drains FP while held, and gliding doesn't count as a fall.
+- **Rush:** jump while sprinting to turn the jump into a long, fast forward leap.
+
+They work by scaling Elden Ring's own gravity and movement on your character, so walls and floors still stop you. They're off while riding Torrent.
+
+**Free powers:** set `free_powers=true` in `elden-resonant.ini`, or press **F8** in game, and powers, skills and traversal cost no FP.
+
+Not included: Shift, which rotates CONTROL Resonant's own levels and has no equivalent in Elden Ring's maps.
 
 ## How it's built
 
@@ -42,14 +52,14 @@ Build on Linux with `rustup target add x86_64-pc-windows-gnu`, `mingw-w64` and `
 
 | Check | Result |
 |---|---|
-| Sheet preflight (275 cells, Elden Ring ids against Paramdex) | clean |
-| Unit tests (archive reader, text tables, install finder, cues, ini) | 12 pass |
+| Sheet preflight (327 cells, Elden Ring ids against Paramdex) | clean |
+| Unit tests (archive reader, text tables, install finder, cues, traversal, ini) | 17 pass |
 | Windows DLL cross-compile | builds, imports only system DLLs |
 | Under Wine with a stand-in CONTROL Resonant archive | DLL loads, finds the install, indexes the archive, picks cues, decodes with vgmstream to WAV |
 | Under Wine with stand-in Elden Ring text tables | weapon, power and class names and descriptions replaced, missing-game notice shown |
 | **In Elden Ring with CONTROL Resonant installed** | **not tested yet**: needs a Windows PC with both games |
 
-The per-frame sound hook uses addresses for Elden Ring 2.7.1.0 (JP 2.7.1.1). On other versions the items and text still change, but sounds stay off and the log says so.
+The per-frame hook (sounds, traversal, free powers) uses addresses for Elden Ring 2.7.1.0 (JP 2.7.1.1). On other versions the class, items and text still change, but those features stay off and the log says so. The traversal numbers in `sheets/traversal.json` are starting values to tune in game.
 
 ## Credits
 

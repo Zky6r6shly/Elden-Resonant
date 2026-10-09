@@ -30,6 +30,7 @@ def main():
     out.append("pub struct Finisher { pub key: &'static str, pub name: &'static str, pub sword_arts_id: i32, pub description: &'static str, pub cue: usize }")
     out.append("pub struct Ability { pub key: &'static str, pub name: &'static str, pub goods_id: u32, pub fp_cost: i16, pub class_item_slot: u8, pub info: &'static str, pub caption: &'static str, pub cue: usize }")
     out.append("pub struct StartClass { pub chara_init_id: u32, pub replaces_class_text: &'static str, pub class_name: &'static str, pub soul_lv: i16, pub vit: u8, pub mind: u8, pub end: u8, pub str_: u8, pub dex: u8, pub int: u8, pub fai: u8, pub arc: u8 }")
+    out.append("pub struct Traversal { pub key: &'static str, pub name: &'static str, pub gravity_multiplier: f32, pub motion_multiplier: f32, pub duration_sec: f32, pub fp_cost: i32, pub fp_per_second: f32, pub uses_per_airtime: u8, pub cue: usize }")
     out.append("pub struct Cue { pub key: &'static str, pub keywords: &'static [&'static str], pub volume: f32 }")
     out.append("")
     fkeys = [r["key"] for r in sheets["finishers"]["rows"]]
@@ -45,6 +46,13 @@ def main():
     for r in sheets["abilities"]["rows"]:
         out.append(f"    Ability {{ key: {s(r['key'])}, name: {s(r['name'])}, goods_id: {r['erGoodsId']}, fp_cost: {r['fpCost']}, class_item_slot: {r['classItemSlot']}, info: {s(r['info'])}, caption: {s(r['caption'])}, cue: {cues.index(r['crCue'])} }},")
     out.append("];")
+    out.append("pub const TRAVERSAL: &[Traversal] = &[")
+    for r in sheets["traversal"]["rows"]:
+        out.append(f"    Traversal {{ key: {s(r['key'])}, name: {s(r['name'])}, gravity_multiplier: {float(r['gravityMultiplier'])}, motion_multiplier: {float(r['motionMultiplier'])}, duration_sec: {float(r['durationSec'])}, fp_cost: {r['fpCost']}, fp_per_second: {float(r['fpPerSecond'])}, uses_per_airtime: {r['usesPerAirtime']}, cue: {cues.index(r['crCue'])} }},")
+    out.append("];")
+    out.append("pub const ELEVATE: usize = 0;")
+    out.append("pub const DOUBLE_JUMP: usize = 1;")
+    out.append("pub const RUSH: usize = 2;")
     c = sheets["starting_class"]["rows"][0]
     out.append(f"pub const START_CLASS: StartClass = StartClass {{ chara_init_id: {c['erCharaInitId']}, replaces_class_text: {s(c['replacesClassText'])}, class_name: {s(c['className'])}, soul_lv: {c['soulLv']}, vit: {c['vit']}, mind: {c['mind']}, end: {c['end']}, str_: {c['str']}, dex: {c['dex']}, int: {c['int']}, fai: {c['fai']}, arc: {c['arc']} }};")
     out.append("pub const CUES: &[Cue] = &[")

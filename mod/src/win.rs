@@ -21,12 +21,13 @@ use windows::core::w;
 
 use crate::config::{self, Config};
 use crate::generated::{ABILITIES, CUE_ARRIVAL, CUES, FINISHERS, FORMS, START_CLASS};
-use crate::{cotr, cues, fmg, locate};
+use crate::{cotr, cues, fmg, locate, traversal};
 
 static MODULE: AtomicUsize = AtomicUsize::new(0);
 static CR_FOUND: AtomicBool = AtomicBool::new(false);
 static LOG: OnceLock<Mutex<Option<std::fs::File>>> = OnceLock::new();
 static AUDIO: OnceLock<Mutex<Sender<usize>>> = OnceLock::new();
+static FREE_POWERS: AtomicBool = AtomicBool::new(false);
 
 fn data_dir() -> PathBuf {
     let base = std::env::var_os("LOCALAPPDATA").map(PathBuf::from).unwrap_or_else(std::env::temp_dir);
@@ -94,6 +95,8 @@ pub unsafe extern "system" fn DllMain(hmodule: usize, reason: u32, _: usize) -> 
 fn run() {
     log(&format!("Elden Resonant {} starting", env!("CARGO_PKG_VERSION")));
     let cfg = std::fs::read_to_string(dll_dir().join("elden-resonant.ini")).map(|t| config::parse(&t)).unwrap_or_default();
+    FREE_POWERS.store(cfg.free_powers, Ordering::Relaxed);
+    log(&format!("free powers (no FP cost): {} (F8 toggles)", if cfg.free_powers { "on" } else { "off" }));
     let explicit = std::env::var("ELDEN_RESONANT_CR_PATH").ok().or(cfg.cr_path.clone()).map(PathBuf::from);
     let epic = PathBuf::from("C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests");
     let cr = locate::find(explicit, &steam_roots(), &epic);
@@ -167,14 +170,31 @@ struct State {
     arrived: bool,
     last_fp: Option<i32>,
     last_weapon: Option<u32>,
+    last_frame: Option<Instant>,
+    f8_down: bool,
+    traversal: traversal::Traversal,
 }
 
 impl State {
     fn frame(&mut self) {
         let Ok(wcm) = (unsafe { WorldChrMan::instance_mut() }) else { return };
+        let now = Instant::now();
+        let dt = self.last_frame.map(|t| (now - t).as_secs_f32()).unwrap_or(0.0).min(0.1);
+        self.last_frame = Some(now);
+
+        // F8 toggles free powers
+        let f8 = unsafe { windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState(0x77) } < 0;
+        if f8 && !self.f8_down {
+            let on = !FREE_POWERS.load(Ordering::Relaxed);
+            FREE_POWERS.store(on, Ordering::Relaxed);
+            log(&format!("free powers {}", if on { "on" } else { "off" }));
+        }
+        self.f8_down = f8;
+
         let Some(player) = wcm.main_player.as_mut() else {
             self.last_fp = None;
             self.last_weapon = None;
+            self.traversal = traversal::Traversal::default();
             return;
         };
         if !self.arrived {
@@ -184,7 +204,7 @@ impl State {
             start_text_pass("in world");
         }
 
-        let fp = player.chr_ins.modules.data.fp;
+        let mut fp = player.chr_ins.modules.data.fp;
         let pgd = unsafe { player.player_game_data.as_ref() };
         let asm = &pgd.equipment.chr_asm;
         let slot = asm.equipment.selected_slots.right_weapon_slot.min(2) as usize;
@@ -208,6 +228,42 @@ impl State {
                     play(FINISHERS[FORMS[f].finisher].cue);
                 }
             }
+        }
+
+        // Elevate, Double Jump, Rush
+        let modules = &mut player.chr_ins.modules;
+        let req = &modules.action_request;
+        let input = traversal::Input {
+            dt,
+            airborne: !modules.physics.standing_on_solid_ground,
+            riding: modules.ride.ride_node.ride_state != 0,
+            jump_pressed: req.new_action_presses.jump(),
+            jump_held: req.action_requests.jump(),
+            jump_held_for: req.action_timers.jump,
+            sprinting: req.movement_request_flags.dash(),
+            fp,
+        };
+        let out = self.traversal.frame(input);
+        if let Some(g) = out.gravity {
+            modules.physics.gravity_multiplier = g;
+        }
+        if let Some(m) = out.motion {
+            modules.physics.motion_multiplier = m;
+        }
+        if out.reset_fall {
+            modules.fall.fall_timer = 0.0;
+        }
+        if let Some(c) = out.cue {
+            play(c);
+        }
+        if out.fp_spent > 0 {
+            fp = (fp - out.fp_spent).max(0);
+        }
+        if FREE_POWERS.load(Ordering::Relaxed) {
+            fp = modules.data.max_fp;
+        }
+        if fp != modules.data.fp {
+            modules.data.fp = fp;
         }
         self.last_fp = Some(fp);
     }

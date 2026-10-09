@@ -3,12 +3,14 @@
 //! cr_path=D:\Games\CONTROL Resonant   (where CONTROL Resonant is installed)
 //! volume=0.8                           (master volume, 0..1)
 //! cue.arrival=audio/music/xyz.wem      (pin a cue to an exact archive path)
+//! free_powers=true                     (powers, skills and traversal cost no FP; F8 toggles in game)
 
 #[derive(Debug, Default, Clone)]
 pub struct Config {
     pub cr_path: Option<String>,
     pub volume: Option<f32>,
     pub pinned: Vec<(String, String)>,
+    pub free_powers: bool,
 }
 
 pub fn parse(text: &str) -> Config {
@@ -22,6 +24,7 @@ pub fn parse(text: &str) -> Config {
         let (k, v) = (k.trim(), v.trim());
         match k {
             "cr_path" if !v.is_empty() => c.cr_path = Some(v.to_string()),
+            "free_powers" => c.free_powers = matches!(v.to_ascii_lowercase().as_str(), "1" | "true" | "yes" | "on"),
             "volume" => c.volume = v.parse().ok().map(|x: f32| x.clamp(0.0, 1.0)),
             _ if k.starts_with("cue.") && !v.is_empty() => c.pinned.push((k[4..].to_string(), v.to_string())),
             _ => {}
@@ -34,7 +37,8 @@ pub fn parse(text: &str) -> Config {
 mod tests {
     #[test]
     fn parses() {
-        let c = super::parse("; hi\n[x]\ncr_path = D:\\CR\nvolume=3\ncue.arrival=a/b.wem\njunk\n");
+        let c = super::parse("; hi\n[x]\ncr_path = D:\\CR\nvolume=3\ncue.arrival=a/b.wem\njunk\nfree_powers = On\n");
+        assert!(c.free_powers);
         assert_eq!(c.cr_path.as_deref(), Some("D:\\CR"));
         assert_eq!(c.volume, Some(1.0));
         assert_eq!(c.pinned, vec![("arrival".into(), "a/b.wem".into())]);

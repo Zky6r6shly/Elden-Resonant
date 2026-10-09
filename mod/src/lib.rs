@@ -12,6 +12,7 @@ pub mod fmg;
 #[allow(clippy::all)]
 pub mod generated;
 pub mod locate;
+pub mod traversal;
 
 #[cfg(windows)]
 mod win;

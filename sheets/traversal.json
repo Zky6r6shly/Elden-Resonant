@@ -1,0 +1,10 @@
+{
+  "sheet": "traversal",
+  "about": "CONTROL Resonant's traversal powers. Every Resonant has them from the start; they all use the jump button. The mod drives them by scaling Elden Ring's own physics on the player (gravity, root motion), so collisions stay Elden Ring's. Numbers are starting values to tune in game.",
+  "columns": ["key", "name", "trigger", "gravityMultiplier", "motionMultiplier", "durationSec", "fpCost", "fpPerSecond", "usesPerAirtime", "crCue"],
+  "rows": [
+    {"key": "elevate", "name": "Elevate", "trigger": "hold jump in mid-air (after 0.3 s)", "gravityMultiplier": 0.12, "motionMultiplier": 1.0, "durationSec": 0.0, "fpCost": 0, "fpPerSecond": 6.0, "usesPerAirtime": 0, "crCue": "ability_elevate"},
+    {"key": "double_jump", "name": "Double Jump", "trigger": "press jump in mid-air", "gravityMultiplier": -2.5, "motionMultiplier": 1.0, "durationSec": 0.22, "fpCost": 8, "fpPerSecond": 0.0, "usesPerAirtime": 1, "crCue": "ability_jump"},
+    {"key": "rush", "name": "Rush", "trigger": "press jump while sprinting on the ground", "gravityMultiplier": 1.0, "motionMultiplier": 2.6, "durationSec": 0.6, "fpCost": 10, "fpPerSecond": 0.0, "usesPerAirtime": 0, "crCue": "ability_rush"}
+  ]
+}

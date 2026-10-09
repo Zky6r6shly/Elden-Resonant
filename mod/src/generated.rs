@@ -6,6 +6,7 @@ pub struct Form { pub key: &'static str, pub name: &'static str, pub weapon_id: 
 pub struct Finisher { pub key: &'static str, pub name: &'static str, pub sword_arts_id: i32, pub description: &'static str, pub cue: usize }
 pub struct Ability { pub key: &'static str, pub name: &'static str, pub goods_id: u32, pub fp_cost: i16, pub class_item_slot: u8, pub info: &'static str, pub caption: &'static str, pub cue: usize }
 pub struct StartClass { pub chara_init_id: u32, pub replaces_class_text: &'static str, pub class_name: &'static str, pub soul_lv: i16, pub vit: u8, pub mind: u8, pub end: u8, pub str_: u8, pub dex: u8, pub int: u8, pub fai: u8, pub arc: u8 }
+pub struct Traversal { pub key: &'static str, pub name: &'static str, pub gravity_multiplier: f32, pub motion_multiplier: f32, pub duration_sec: f32, pub fp_cost: i32, pub fp_per_second: f32, pub uses_per_airtime: u8, pub cue: usize }
 pub struct Cue { pub key: &'static str, pub keywords: &'static [&'static str], pub volume: f32 }
 
 pub const FINISHERS: &[Finisher] = &[
@@ -33,6 +34,14 @@ pub const ABILITIES: &[Ability] = &[
     Ability { key: "barrage", name: "Resonance: Barrage", goods_id: 3050, fp_cost: 15, class_item_slot: 6, info: "Loose a bolt of raw resonance at range.", caption: "A Resonance ability.\nA fast ranged shot for fights you can't close.\nCosts FP. Never runs out.", cue: 8 },
     Ability { key: "remote_explosion", name: "Resonance: Remote Explosion", goods_id: 302, fp_cost: 16, class_item_slot: 7, info: "Plant resonance and let it detonate.", caption: "A Resonance ability.\nA heavy charge that erupts where it lands.\nCosts FP. Never runs out.", cue: 9 },
 ];
+pub const TRAVERSAL: &[Traversal] = &[
+    Traversal { key: "elevate", name: "Elevate", gravity_multiplier: 0.12, motion_multiplier: 1.0, duration_sec: 0.0, fp_cost: 0, fp_per_second: 6.0, uses_per_airtime: 0, cue: 10 },
+    Traversal { key: "double_jump", name: "Double Jump", gravity_multiplier: -2.5, motion_multiplier: 1.0, duration_sec: 0.22, fp_cost: 8, fp_per_second: 0.0, uses_per_airtime: 1, cue: 11 },
+    Traversal { key: "rush", name: "Rush", gravity_multiplier: 1.0, motion_multiplier: 2.6, duration_sec: 0.6, fp_cost: 10, fp_per_second: 0.0, uses_per_airtime: 0, cue: 12 },
+];
+pub const ELEVATE: usize = 0;
+pub const DOUBLE_JUMP: usize = 1;
+pub const RUSH: usize = 2;
 pub const START_CLASS: StartClass = StartClass { chara_init_id: 3009, replaces_class_text: "Wretch", class_name: "Resonant", soul_lv: 17, vit: 15, mind: 14, end: 12, str_: 14, dex: 14, int: 9, fai: 9, arc: 9 };
 pub const CUES: &[Cue] = &[
     Cue { key: "arrival", keywords: &["music/main", "mus_main", "theme", "music", "mus_"], volume: 0.7 },
@@ -45,5 +54,8 @@ pub const CUES: &[Cue] = &[
     Cue { key: "ability_growth", keywords: &["growth", "grow", "mold", "spore"], volume: 1.0 },
     Cue { key: "ability_barrage", keywords: &["barrage", "projectile", "shard", "shoot"], volume: 1.0 },
     Cue { key: "ability_explosion", keywords: &["remote", "explo", "detonat", "blast"], volume: 1.0 },
+    Cue { key: "ability_elevate", keywords: &["levitat", "elevate", "float", "glide", "hover"], volume: 0.9 },
+    Cue { key: "ability_jump", keywords: &["double_jump", "doublejump", "jump"], volume: 0.9 },
+    Cue { key: "ability_rush", keywords: &["rush", "dash", "evade", "dodge"], volume: 0.9 },
 ];
 pub const CUE_ARRIVAL: usize = 0;

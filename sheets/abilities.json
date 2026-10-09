@@ -1,20 +1,100 @@
 {
   "sheet": "abilities",
   "about": "Dylan's Resonance powers from CONTROL Resonant. Each row becomes a reusable quick item that costs FP (FP stands in for Resonance), borrowing an Elden Ring throwable's effect. A unique FP cost lets the mod tell which power was used so it can play that power's CONTROL Resonant sound.",
-  "columns": ["key", "name", "erGoodsId", "erGoodsName", "fpCost", "classItemSlot", "info", "caption", "crCue"],
+  "columns": [
+    "key",
+    "name",
+    "erGoodsId",
+    "erGoodsName",
+    "fpCost",
+    "classItemSlot",
+    "info",
+    "caption",
+    "crCue"
+  ],
   "rows": [
-    {"key": "force_push", "name": "Resonance: Force Push", "erGoodsId": 3070, "erGoodsName": "Gravity Stone Chunk", "fpCost": 11, "classItemSlot": 1, "info": "Shove foes away with a pulse of resonance.", "caption": "A Resonance ability.\nA burst of force that throws enemies back and opens space.\nCosts FP, which stands in for Resonance. Never runs out.", "crCue": "ability_push"},
-    {"key": "shield", "name": "Resonance: Offensive Shield", "erGoodsId": 3520, "erGoodsName": "Ironjar Aromatic", "fpCost": 12, "classItemSlot": 2, "info": "Wrap yourself in hardened resonance.", "caption": "A Resonance ability.\nA shell of resonance that blunts incoming blows.\nCosts FP. Never runs out.", "crCue": "ability_shield"},
-    {"key": "ignite", "name": "Resonance: Ignite", "erGoodsId": 300, "erGoodsName": "Fire Pot", "fpCost": 13, "classItemSlot": 3, "info": "Set the air itself alight.", "caption": "A Resonance ability.\nA thrown spark of resonance that bursts into flame.\nCosts FP. Never runs out.", "crCue": "ability_fire"},
-    {"key": "inferno", "name": "Resonance: Inferno", "erGoodsId": 301, "erGoodsName": "Redmane Fire Pot", "fpCost": 17, "classItemSlot": 4, "info": "Ignite, grown into a roaring blaze.", "caption": "A Resonance ability, the fire path's upgrade.\nA larger, hotter burst of flame.\nCosts FP. Never runs out.", "crCue": "ability_fire"},
-    {"key": "growth", "name": "Resonance: Growth", "erGoodsId": 370, "erGoodsName": "Poison Pot", "fpCost": 14, "classItemSlot": 5, "info": "Seed a creeping affliction in your foes.", "caption": "A Resonance ability.\nA status burst that keeps eating at whatever it touches.\nCosts FP. Never runs out.", "crCue": "ability_growth"},
-    {"key": "barrage", "name": "Resonance: Barrage", "erGoodsId": 3050, "erGoodsName": "Glintstone Scrap", "fpCost": 15, "classItemSlot": 6, "info": "Loose a bolt of raw resonance at range.", "caption": "A Resonance ability.\nA fast ranged shot for fights you can't close.\nCosts FP. Never runs out.", "crCue": "ability_barrage"},
-    {"key": "remote_explosion", "name": "Resonance: Remote Explosion", "erGoodsId": 302, "erGoodsName": "Giantsflame Fire Pot", "fpCost": 16, "classItemSlot": 7, "info": "Plant resonance and let it detonate.", "caption": "A Resonance ability.\nA heavy charge that erupts where it lands.\nCosts FP. Never runs out.", "crCue": "ability_explosion"}
+    {
+      "key": "force_push",
+      "name": "Resonance: Force Push",
+      "erGoodsId": 3070,
+      "erGoodsName": "Gravity Stone Chunk",
+      "fpCost": 11,
+      "classItemSlot": 1,
+      "info": "Shove foes away with a pulse of resonance.",
+      "caption": "A Resonance ability.\nA burst of force that throws enemies back and opens space.\nCosts FP, which stands in for Resonance. Never runs out.",
+      "crCue": "ability_push"
+    },
+    {
+      "key": "shield",
+      "name": "Resonance: Offensive Shield",
+      "erGoodsId": 3520,
+      "erGoodsName": "Ironjar Aromatic",
+      "fpCost": 12,
+      "classItemSlot": 2,
+      "info": "Wrap yourself in hardened resonance.",
+      "caption": "A Resonance ability.\nA shell of resonance that blunts incoming blows.\nCosts FP. Never runs out.",
+      "crCue": "ability_shield"
+    },
+    {
+      "key": "ignite",
+      "name": "Resonance: Ignite",
+      "erGoodsId": 300,
+      "erGoodsName": "Fire Pot",
+      "fpCost": 13,
+      "classItemSlot": 3,
+      "info": "Set the air itself alight.",
+      "caption": "A Resonance ability.\nA thrown spark of resonance that bursts into flame.\nCosts FP. Never runs out.",
+      "crCue": "ability_fire"
+    },
+    {
+      "key": "inferno",
+      "name": "Resonance: Inferno",
+      "erGoodsId": 301,
+      "erGoodsName": "Redmane Fire Pot",
+      "fpCost": 17,
+      "classItemSlot": 4,
+      "info": "Ignite, grown into a roaring blaze.",
+      "caption": "A Resonance ability, the fire path's upgrade.\nA larger, hotter burst of flame.\nCosts FP. Never runs out.",
+      "crCue": "ability_fire"
+    },
+    {
+      "key": "growth",
+      "name": "Resonance: Growth",
+      "erGoodsId": 370,
+      "erGoodsName": "Poison Pot",
+      "fpCost": 14,
+      "classItemSlot": 5,
+      "info": "Seed a creeping affliction in your foes.",
+      "caption": "A Resonance ability.\nA status burst that keeps eating at whatever it touches.\nCosts FP. Never runs out.",
+      "crCue": "ability_growth"
+    },
+    {
+      "key": "barrage",
+      "name": "Resonance: Barrage",
+      "erGoodsId": 3050,
+      "erGoodsName": "Glintstone Scrap",
+      "fpCost": 15,
+      "classItemSlot": 6,
+      "info": "Loose a bolt of raw resonance at range.",
+      "caption": "A Resonance ability.\nA fast ranged shot for fights you can't close.\nCosts FP. Never runs out.",
+      "crCue": "ability_barrage"
+    },
+    {
+      "key": "remote_explosion",
+      "name": "Resonance: Remote Explosion",
+      "erGoodsId": 302,
+      "erGoodsName": "Giantsflame Fire Pot",
+      "fpCost": 16,
+      "classItemSlot": 7,
+      "info": "Plant resonance and let it detonate.",
+      "caption": "A Resonance ability.\nA heavy charge that erupts where it lands.\nCosts FP. Never runs out.",
+      "crCue": "ability_explosion"
+    }
   ],
   "excluded": [
-    {"key": "elevate", "reason": "Traversal power (float/glide). Elden Ring has no item route to free flight; left out of the first version."},
-    {"key": "double_jump", "reason": "Traversal. Elden Ring's jump and Torrent cover this; left out."},
-    {"key": "rush", "reason": "Traversal dash. Elden Ring's roll and backstep cover this; left out."},
-    {"key": "shift", "reason": "Rotates the world in CONTROL Resonant's levels; there is no equivalent in Elden Ring's maps."}
+    {
+      "key": "shift",
+      "reason": "Rotates the world in CONTROL Resonant's levels; there is no equivalent in Elden Ring's maps. (Elevate, Double Jump and Rush are in sheets/traversal.json.)"
+    }
   ]
 }

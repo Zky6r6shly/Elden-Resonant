@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SHEETS = ["forms", "finishers", "abilities", "starting_class", "cues", "hooks"]
+SHEETS = ["forms", "finishers", "abilities", "traversal", "starting_class", "cues", "hooks"]
 CLASS_SLOTS = {"R1", "R2", "R3", "L1", "L2", "L3"}
 
 # (sheet, column) -> (referenced sheet, its key column)
@@ -21,6 +21,7 @@ REFS = {
     ("forms", "crCue"): "cues",
     ("finishers", "crCue"): "cues",
     ("abilities", "crCue"): "cues",
+    ("traversal", "crCue"): "cues",
 }
 
 # (sheet, id column, name column, Paramdex names file)
@@ -93,7 +94,14 @@ def preflight(sheets, paramdex=None):
     unused_finishers = keys["finishers"] - {r["finisher"] for r in sheets["forms"]["rows"]}
     for k in sorted(unused_finishers):
         problems.append(f"finishers.{k}: no form carries this finisher")
-    used_cues = {r["crCue"] for s in ("forms", "finishers", "abilities") for r in sheets[s]["rows"]} | {"arrival"}
+    for r in sheets["traversal"]["rows"]:
+        if r.get("durationSec", 0) < 0 or r.get("fpCost", 0) < 0 or r.get("fpPerSecond", 0) < 0:
+            problems.append(f"traversal.{r['key']}: negative duration or cost")
+        if r.get("durationSec") == 0 and r.get("fpPerSecond") == 0:
+            problems.append(f"traversal.{r['key']}: a held power (durationSec 0) needs fpPerSecond")
+    if [r["key"] for r in sheets["traversal"]["rows"]] != ["elevate", "double_jump", "rush"]:
+        problems.append("traversal: rows must be elevate, double_jump, rush (the mod's input logic is written for these three)")
+    used_cues = {r["crCue"] for s in ("forms", "finishers", "abilities", "traversal") for r in sheets[s]["rows"]} | {"arrival"}
     for k in sorted(keys["cues"] - used_cues):
         problems.append(f"cues.{k}: nothing triggers this cue")
     for r in sheets["cues"]["rows"]:
