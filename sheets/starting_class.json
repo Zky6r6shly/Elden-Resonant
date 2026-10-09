@@ -1,0 +1,8 @@
+{
+  "sheet": "starting_class",
+  "about": "The class you pick at character creation. It replaces Elden Ring's Wretch with a Resonant who starts holding every Aberrant form and every Resonance ability.",
+  "columns": ["key", "erCharaInitId", "replacesClassText", "className", "soulLv", "vit", "mind", "end", "str", "dex", "int", "fai", "arc"],
+  "rows": [
+    {"key": "resonant", "erCharaInitId": 3009, "replacesClassText": "Wretch", "className": "Resonant", "soulLv": 17, "vit": 15, "mind": 14, "end": 12, "str": 14, "dex": 14, "int": 9, "fai": 9, "arc": 9}
+  ]
+}

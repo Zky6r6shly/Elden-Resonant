@@ -1,0 +1,25 @@
+[package]
+name = "elden_resonant"
+version = "0.1.0"
+edition = "2024"
+description = "Elden Ring x CONTROL Resonant mashup: play the Lands Between as a Resonant with the Aberrant and Dylan's powers."
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+lz4_flex = { version = "0.14", default-features = false, features = ["std", "safe-decode"] }
+serde_json = "1"
+
+[target.'cfg(windows)'.dependencies]
+eldenring = "0.14"
+fromsoftware-shared = "0.14"
+rodio = { version = "0.22", default-features = false, features = ["playback", "wav"] }
+windows = { version = "0.61", features = ["Win32_System_Memory", "Win32_System_LibraryLoader", "Win32_Foundation", "Win32_System_Registry", "Win32_System_Threading", "Win32_System_Diagnostics_Debug"] }
+
+[profile.release]
+panic = "unwind"
+lto = true
+opt-level = 3
+strip = true

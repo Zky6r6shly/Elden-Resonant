@@ -1,0 +1,16 @@
+{
+  "sheet": "hooks",
+  "about": "Every place the mod touches Elden Ring or CONTROL Resonant, and how.",
+  "columns": ["key", "game", "system", "mechanism", "versionDependence"],
+  "rows": [
+    {"key": "load", "game": "elden-ring", "system": "DLL loading", "mechanism": "ModEngine2 external DLL (Melty starts Elden Ring through ModEngine2, offline, anti-cheat off)", "versionDependence": "none"},
+    {"key": "task", "game": "elden-ring", "system": "per-frame task", "mechanism": "fromsoftware-rs CSTaskImp::run_recurring at FrameBegin", "versionDependence": "singleton lookup, any version"},
+    {"key": "params", "game": "elden-ring", "system": "EquipParamWeapon / EquipParamGoods / CharaInitParam rows", "mechanism": "fromsoftware-rs SoloParamRepository::get_mut, applied once params are loaded", "versionDependence": "singleton lookup + param layouts of the 2.x regulation"},
+    {"key": "text", "game": "elden-ring", "system": "item, skill and class names", "mechanism": "scan loaded FMG text tables in memory, validate their headers, repoint our ids' strings to the mod's text", "versionDependence": "FMG v2 format, any version"},
+    {"key": "player", "game": "elden-ring", "system": "player FP and right-hand weapon", "mechanism": "WorldChrMan main_player -> chr data module fp; PlayerGameData chr_asm equipment_param_ids", "versionDependence": "struct layouts of the library's supported version"},
+    {"key": "locate_cr", "game": "control-resonant", "system": "install folder", "mechanism": "ELDEN_RESONANT_CR_PATH, else Steam libraryfolders.vdf + appmanifest_3669870.acf, else Epic launcher manifests", "versionDependence": "none"},
+    {"key": "read_cr", "game": "control-resonant", "system": ".rmdtoc/.rmdblob archives", "mechanism": "own COTR v3 reader (LZ4 block chunks), lists .wem paths, extracts chosen files", "versionDependence": "COTR version 3"},
+    {"key": "audio", "game": "control-resonant", "system": "Wwise .wem audio", "mechanism": "bundled vgmstream-cli decodes to WAV in the cache; rodio plays it", "versionDependence": "none"},
+    {"key": "missing_cr", "game": "control-resonant", "system": "not-installed notice", "mechanism": "Aberrant item descriptions say CONTROL Resonant was not found and how to fix it", "versionDependence": "none"}
+  ]
+}

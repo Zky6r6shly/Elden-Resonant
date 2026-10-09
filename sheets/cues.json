@@ -1,0 +1,17 @@
+{
+  "sheet": "cues",
+  "about": "Sounds read from the player's own CONTROL Resonant install at run time. The mod lists every .wem in the game's .rmdtoc archives, picks the first whose path contains a keyword (in order), decodes it with vgmstream and plays it on the trigger. Choices are logged and can be pinned in elden-resonant.ini.",
+  "columns": ["key", "trigger", "keywords", "volume"],
+  "rows": [
+    {"key": "arrival", "trigger": "player enters the world", "keywords": ["music/main", "mus_main", "theme", "music", "mus_"], "volume": 0.7},
+    {"key": "form_shift", "trigger": "an Aberrant form becomes the active right-hand weapon", "keywords": ["aberrant", "shapeshift", "weapon_shift", "transform", "melee"], "volume": 0.9},
+    {"key": "finisher_heavy", "trigger": "FP spent on a skill while a heavy form (Crush, Drill) is active", "keywords": ["finisher", "beatdown", "uppercut", "impact", "heavy"], "volume": 1.0},
+    {"key": "finisher_edge", "trigger": "FP spent on a skill while an edged form (Flurry, Slash, Slice, Extend) is active", "keywords": ["finisher", "spin", "edge", "slash", "swing"], "volume": 1.0},
+    {"key": "ability_push", "trigger": "FP drops by Force Push's cost", "keywords": ["push", "force", "launch", "telekin"], "volume": 1.0},
+    {"key": "ability_shield", "trigger": "FP drops by Offensive Shield's cost", "keywords": ["shield", "barrier"], "volume": 1.0},
+    {"key": "ability_fire", "trigger": "FP drops by Ignite's or Inferno's cost", "keywords": ["ignite", "inferno", "fire", "burn"], "volume": 1.0},
+    {"key": "ability_growth", "trigger": "FP drops by Growth's cost", "keywords": ["growth", "grow", "mold", "spore"], "volume": 1.0},
+    {"key": "ability_barrage", "trigger": "FP drops by Barrage's cost", "keywords": ["barrage", "projectile", "shard", "shoot"], "volume": 1.0},
+    {"key": "ability_explosion", "trigger": "FP drops by Remote Explosion's cost", "keywords": ["remote", "explo", "detonat", "blast"], "volume": 1.0}
+  ]
+}

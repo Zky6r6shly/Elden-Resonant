@@ -1,0 +1,13 @@
+{
+  "sheet": "finishers",
+  "about": "CONTROL Resonant's six combo finishers. Each row becomes the built-in skill of one Aberrant form, borrowing the animation of an Elden Ring skill.",
+  "columns": ["key", "name", "erSwordArtsId", "erSwordArtsName", "description", "crCue"],
+  "rows": [
+    {"key": "concussive_beatdown", "name": "Concussive Beatdown", "erSwordArtsId": 110, "erSwordArtsName": "Wild Strikes", "description": "A string of quick blows that pile on stagger.", "crCue": "finisher_heavy"},
+    {"key": "uppercut_surge", "name": "Uppercut Surge", "erSwordArtsId": 116, "erSwordArtsName": "Giant Hunt", "description": "Hook the enemy and hurl them upward.", "crCue": "finisher_heavy"},
+    {"key": "wide_edge", "name": "Wide Edge", "erSwordArtsId": 103, "erSwordArtsName": "Spinning Slash", "description": "One spinning sweep that strikes everything nearby.", "crCue": "finisher_edge"},
+    {"key": "split_pivot", "name": "Split Pivot", "erSwordArtsId": 112, "erSwordArtsName": "Double Slash", "description": "The blades split and pivot into a circular cut.", "crCue": "finisher_edge"},
+    {"key": "split_orbit", "name": "Split Orbit", "erSwordArtsId": 120, "erSwordArtsName": "Spinning Weapon", "description": "The weapon breaks into an orbiting blade that hits all around.", "crCue": "finisher_edge"},
+    {"key": "spin_edge", "name": "Spin Edge", "erSwordArtsId": 111, "erSwordArtsName": "Spinning Strikes", "description": "A continuous spin that shreds all close foes.", "crCue": "finisher_edge"}
+  ]
+}
