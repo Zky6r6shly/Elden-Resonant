@@ -1,0 +1,13 @@
+# ModEngine2 config for Elden Resonant. Melty starts Elden Ring through
+# ModEngine2 with this file: offline, Easy Anti-Cheat off.
+[modengine]
+debug = false
+external_dlls = ["EldenResonant\\elden_resonant.dll"]
+
+[extension.mod_loader]
+enabled = true
+loose_params = false
+mods = [{ enabled = true, name = "default", path = "mod" }]
+
+[extension.scylla_hide]
+enabled = false
